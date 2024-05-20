@@ -39,11 +39,11 @@ export default class TileMap{
                     this.#drawDot(ctx, column, row, this.tileSize);
                 }
 
-                ctx.strokeStyle = "yellow";
-                ctx.strokeRect(
-                    column * this.tileSize,
-                    row * this.tileSize, 
-                    this.tileSize, this.tileSize);
+                // ctx.strokeStyle = "yellow";
+                // ctx.strokeRect(
+                //     column * this.tileSize,
+                //     row * this.tileSize, 
+                //     this.tileSize, this.tileSize);
             }
         }
     }
@@ -77,6 +77,9 @@ export default class TileMap{
     }
 
     didCollideWithEnvironment(x,y,direction){
+        if(direction == null){
+            return
+        }
         if(Number.isInteger(x/ this.tileSize)&&
         Number.isInteger(y/ this.tileSize))
         {

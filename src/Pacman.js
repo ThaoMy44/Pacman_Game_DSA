@@ -12,20 +12,41 @@ export default class Pacman{
         this.request = null;
 
         this.pacmanAnimationTimerDefault = 10;
-        this.pacmanAnimatorTimer = null;
+        this.pacmanAnimationTimer = null;
+
+        this.pacmanRotation = this.Rotation.right;
 
         document.addEventListener("keydown", this.#keydown)
 
         this.#loadPacmanImages();
     }
     
+    
+
     draw(ctx){
         this.#move();
-        ctx.drawImage(this.pacmanImages[this.pacmanImageIndex], 
-            this.x, 
-            this.y, 
+        this.#animate();
+        
+
+        const size = this.tileSize /2;
+
+        ctx.save();
+        ctx.translate(this.x + size, this.y + size);
+        ctx.rotate((this.pacmanRotation * 90 * Math.PI)/ 180 );
+        ctx.drawImage(this.pacmanImages[this.pacmanImageIndex],
+            -size,
+            -size,
             this.tileSize, 
-            this.tileSize);
+            this.tileSize
+        );
+
+        ctx.restore();
+
+        // ctx.drawImage(this.pacmanImages[this.pacmanImageIndex], 
+        //     this.x, 
+        //     this.y, 
+        //     this.tileSize, 
+        //     this.tileSize);
 
     }
 
@@ -85,6 +106,13 @@ export default class Pacman{
         
     }
 
+    Rotation ={
+        right : 0,
+        down: 1,
+        left: 2,
+        up: 3,
+    }
+
     #move(){
         if (this.current !== this.request){
             if(Number.isInteger(this.x/this.tileSize) && 
@@ -98,34 +126,56 @@ export default class Pacman{
                 this.current = this.request;
             }
         }
-
+    
         if (this.tileMap.didCollideWithEnvironment(
             this.x,
             this.y,
-            this.current,)){
+            this.current,))
+            {
+                this.pacmanAnimationTimer = null;
+                this.pacmanIndex = 1;
                 return;
             }
+        
+        else if (this.current != null && this.pacmanAnimationTimer == null){
+            this.pacmanAnimationTimer = this.pacmanAnimationTimerDefault;
+        }
 
         switch(this.current){
             case MovingDirection.up:
                 this.y -= this.velocity;
+                this.pacmanRotation = this.Rotation.up;
                 break;
 
             case MovingDirection.down:
                 this.y += this.velocity;
+                this.pacmanRotation = this.Rotation.down;
                 break;
 
             case MovingDirection.left:
                 this.x -= this.velocity;
+                this.pacmanRotation = this.Rotation.left;
                 break;
 
             case MovingDirection.right:
                 this.x += this.velocity;
+                this.pacmanRotation = this.Rotation.right;
                 break;
         }
     }
 
     #animate(){
+        
+        if(this.pacmanAnimationTimer == null ){
+            return;
+        }
+        this.pacmanAnimationTimer--;
+        if(this.pacmanAnimationTimer == 0){
+            this.pacmanAnimationTimer = this.pacmanAnimationTimerDefault;
+            this.pacmanImageIndex++;
+            if(this.pacmanImageIndex == this.pacmanImages.length)
+            this.pacmanImageIndex = 0;
+        }
         
     }
 
