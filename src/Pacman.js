@@ -11,6 +11,9 @@ export default class Pacman{
         this.current = null;
         this.request = null;
 
+        this.pacmanAnimationTimerDefault = 10;
+        this.pacmanAnimatorTimer = null;
+
         document.addEventListener("keydown", this.#keydown)
 
         this.#loadPacmanImages();
@@ -62,7 +65,7 @@ export default class Pacman{
         if(event.keyCode === 40 || event.keyCode == 83){
             if(this.current == MovingDirection.up)
                 this.current = MovingDirection.down;
-            this.request = MovingDirection.down;s
+            this.request = MovingDirection.down;
         }
 
         //left
@@ -86,9 +89,23 @@ export default class Pacman{
         if (this.current !== this.request){
             if(Number.isInteger(this.x/this.tileSize) && 
             Number.isInteger(this.y/this.tileSize)){
+                if (!this.tileMap.didCollideWithEnvironment(
+                    this.x,
+                    this.y,
+                    this.request
+                )
+            )
                 this.current = this.request;
             }
         }
+
+        if (this.tileMap.didCollideWithEnvironment(
+            this.x,
+            this.y,
+            this.current,)){
+                return;
+            }
+
         switch(this.current){
             case MovingDirection.up:
                 this.y -= this.velocity;
@@ -108,5 +125,8 @@ export default class Pacman{
         }
     }
 
+    #animate(){
+        
+    }
 
 }
