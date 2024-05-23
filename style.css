@@ -1,0 +1,23 @@
+#gameCanvas{
+    box-shadow: 10px 10px 20px black;
+}
+h1{
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    color: lightgray;
+}
+body{
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    height: 100vh;
+    background: black;
+}
+#scoreDisplay {
+position: fixed;
+top: 720px;
+right: 670px;
+color: white;
+font-family: 'Gemunu Libre', sans-serif;
+font-size: 20px;
+}

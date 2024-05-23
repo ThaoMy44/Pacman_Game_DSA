@@ -15,21 +15,24 @@ export default class Pacman{
         this.pacmanAnimationTimer = null;
 
         this.pacmanRotation = this.Rotation.right;
+        this.wakaSound = new Audio("./sounds/8bit-music-for-game-68698.mp3");
 
         document.addEventListener("keydown", this.#keydown)
 
         this.#loadPacmanImages();
     }
-    
-    
+     
+//----------------------------------------------------------------//
 
     draw(ctx){
+        //function
         this.#move();
         this.#animate();
-        
+        this.#eatDot();
 
         const size = this.tileSize /2;
 
+        //rotation, draw
         ctx.save();
         ctx.translate(this.x + size, this.y + size);
         ctx.rotate((this.pacmanRotation * 90 * Math.PI)/ 180 );
@@ -42,13 +45,16 @@ export default class Pacman{
 
         ctx.restore();
 
-        // ctx.drawImage(this.pacmanImages[this.pacmanImageIndex], 
-        //     this.x, 
-        //     this.y, 
-        //     this.tileSize, 
-        //     this.tileSize);
-
     }
+//----------------------------------------------------------------//
+
+    Rotation ={
+        right : 0,
+        down: 1,
+        left: 2,
+        up: 3,
+    }   
+//----------------------------------------------------------------//
 
     #loadPacmanImages(){
         const pacmanImage1 = new Image(); // pacman close
@@ -104,13 +110,6 @@ export default class Pacman{
         }
 
         
-    }
-
-    Rotation ={
-        right : 0,
-        down: 1,
-        left: 2,
-        up: 3,
     }
 
     #move(){
@@ -178,5 +177,14 @@ export default class Pacman{
         }
         
     }
+
+    #eatDot(){
+        if(this.tileMap.eatDot(this.x,this.y)){
+            //play sound
+            
+            //this.wakaSound.play();         
+        }
+    }
+
 
 }
