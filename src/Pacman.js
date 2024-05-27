@@ -17,6 +17,13 @@ export default class Pacman{
         this.pacmanRotation = this.Rotation.right;
         this.wakaSound = new Audio("./sounds/8bit-music-for-game-68698.mp3");
 
+        this.powerDotSound = new Audio("./sounds/power_dot.wav");
+        this.powerDotActive = false;
+        this.powerDotAboutToExpire = false;
+        this.timers =[];
+
+        this.madeFirstMove = false;
+
         document.addEventListener("keydown", this.#keydown)
 
         this.#loadPacmanImages();
@@ -24,12 +31,16 @@ export default class Pacman{
      
 //----------------------------------------------------------------//
 
-    draw(ctx){
+    draw(ctx, pause, ghosts){
         //function
-        this.#move();
-        this.#animate();
+        if (!pause) {
+            this.#move();
+            this.#animate();
+        }
         this.#eatDot();
-
+        this.#eatPowerDot();
+        this.#eatGhost(ghosts);
+        
         const size = this.tileSize /2;
 
         //rotation, draw
@@ -86,6 +97,7 @@ export default class Pacman{
             if(this.current == MovingDirection.down)
                 this.current = MovingDirection.up;
             this.request = MovingDirection.up;
+            this.madeFirstMove = true;
         }
 
         //down
@@ -93,6 +105,7 @@ export default class Pacman{
             if(this.current == MovingDirection.up)
                 this.current = MovingDirection.down;
             this.request = MovingDirection.down;
+            this.madeFirstMove = true;
         }
 
         //left
@@ -100,6 +113,7 @@ export default class Pacman{
             if(this.current === MovingDirection.right)
                 this.current = MovingDirection.left;
             this.request = MovingDirection.left;
+            this.madeFirstMove = true;
         }
 
         //right
@@ -107,6 +121,7 @@ export default class Pacman{
             if(this.current == MovingDirection.left)
                 this.current = MovingDirection.right;
             this.request = MovingDirection.right;
+            this.madeFirstMove = true;
         }
 
         
@@ -183,6 +198,39 @@ export default class Pacman{
             //play sound
             
             //this.wakaSound.play();         
+        }
+    }
+
+    #eatPowerDot() {
+        if (this.tileMap.eatPowerDot(this.x, this.y)) {
+            this.powerDotSound.play();
+            this.powerDotActive = true;
+            this.powerDotAboutToExpire = false;
+            this.timers.forEach((timer) => clearTimeout(timer));
+            this.timers = [];
+    
+            let powerDotTimer = setTimeout(() => {
+                this.powerDotAboutToExpire = false;
+            }, 1000 * 6);
+    
+            this.timers.push(powerDotTimer);
+    
+            let powerDotAboutToExpireTimer = setTimeout(() => {
+                this.powerDotActive = false;
+                this.powerDotAboutToExpire = true;
+            }, 1000 * 3);
+    
+            this.timers.push(powerDotAboutToExpireTimer);
+        }
+    }
+
+    #eatGhost(ghosts) {
+        if (this.powerDotActive) {
+            const collideEnemies = ghosts.filter((ghost) => ghost.collideWith(this));
+            collideEnemies.forEach((ghost) => {
+                ghosts.splice(ghosts.indexOf(ghosts), 1);
+                //this.eatGhostSound.play();
+            });
         }
     }
 

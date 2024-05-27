@@ -21,3 +21,38 @@ color: white;
 font-family: 'Gemunu Libre', sans-serif;
 font-size: 20px;
 }
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #000;
+    /* color: #fff; */
+    font-family: Arial, sans-serif;
+}
+
+#menu, #gameContainer {
+    text-align: center;
+}
+
+button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #ffcc00;
+    color: #000;
+}
+
+button:hover {
+    background-color: #ff9900;
+}
+
+/* canvas {
+    border: 2px solid #fff;
+} */

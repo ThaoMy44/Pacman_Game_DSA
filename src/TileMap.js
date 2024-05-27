@@ -9,13 +9,22 @@ export default class TileMap{
 
         this.yellowDot = new Image();
         this.yellowDot.src = "./images/yellowdot.png"
+
+        this.pinkDot = new Image();
+        this.pinkDot.src = "./images/pinkDot.png"
         
         this.wall = new Image();
         this.wall.src = "./images/wall.png"
+
+        this.powerDot = this.pinkDot;
+        this.powerDotAnmationTimerDefault = 30;
+        this.powerDotAnmationTimer = this.powerDotAnmationTimerDefault ;
     }
     //1 wall
     //0 dot
     //4 pacman
+    //6 ghost
+    //7 powerdot
     map = [
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
         [1, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 1],
@@ -24,7 +33,7 @@ export default class TileMap{
         [1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1],
         [1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1],
         [1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 1],
         [1, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 1],
         [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -39,6 +48,9 @@ export default class TileMap{
                 }
                 else if(tile === 0){
                     this.#drawDot(ctx, column, row, this.tileSize);
+                }
+                else if(tile == 7){
+                    this.#drawPowerDot(ctx, column, row, this.tileSize);
                 }
                 else{
                     this.#drawBlank(ctx, column, row, this.tileSize)
@@ -65,6 +77,19 @@ export default class TileMap{
     #drawBlank(ctx, column, row, size){
         ctx.fillStyle = "black";
         ctx.fillRect(column*this.tileSize, row *this.tileSize,size,size)
+    }
+
+    #drawPowerDot(ctx, column, row, size){
+        this.powerDotAnmationTimer--;
+        if (this.powerDotAnmationTimer === 0) {
+          this.powerDotAnmationTimer = this.powerDotAnmationTimerDefault;
+          if (this.powerDot == this.pinkDot) {
+            this.powerDot = this.yellowDot;
+          } else {
+            this.powerDot = this.pinkDot;
+          }
+        }
+        ctx.drawImage(this.powerDot, column * size, row * size, size, size);
     }
 
     getPacman(velocity){
@@ -110,15 +135,7 @@ export default class TileMap{
         }
         return ghosts;
     }
-    #shuffle(array) {
-        // Fisher-Yates shuffle algorithm
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
-        return array;
-    }
-    
+   
 
     setCanvasSize(canvas){
         canvas.width = this.map[0].length * this.tileSize;
@@ -170,6 +187,14 @@ export default class TileMap{
         return false;
     }
 
+    didWin() {
+        return this.#dotsLeft() === 0;
+    }
+
+    #dotsLeft() {
+        return this.map.flat().filter((tile) => tile === 0).length;
+    }
+
     eatDot(x,y){
         const row = y / this.tileSize;
         const column = x / this.tileSize;
@@ -181,4 +206,17 @@ export default class TileMap{
         }
         return(false);
     }
+
+    eatPowerDot(x, y) {
+        const row = y / this.tileSize;
+        const column = x / this.tileSize;
+        if (Number.isInteger(row) && Number.isInteger(column)) {
+          const tile = this.map[row][column];
+          if (tile === 7) {
+            this.map[row][column] = 5;
+            return true;
+          }
+        }
+        return false;
+      }
 }
