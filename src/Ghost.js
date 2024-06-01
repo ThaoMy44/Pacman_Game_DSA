@@ -10,6 +10,9 @@ export default class Ghost {
         this.velocity = velocity;
         this.tileMap = tileMap;
         this.imageIndex = imageIndex;
+
+        this.startX = x;
+        this.startY = y;
         
         this.image = null;
 

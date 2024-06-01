@@ -34,10 +34,11 @@ function gameLoop(){ // redraw the screen certain number of times every 1 second
     pacman.draw(ctx, pause(), ghosts);
     ghosts.forEach((ghost) => ghost.draw(ctx, pause(), pacman));
     //upgradeScore();
+    checkCollisions();
     checkGameOver();
     checkGameWin();
     drawRemainingLives();
-    update();
+    
 }
 
 function checkGameWin() {
@@ -60,7 +61,7 @@ function checkGameWin() {
   
   function isGameOver() {
     return ghosts.some(
-      // (enemy) => !pacman.powerDotActive && enemy.collideWith(pacman)
+      
       (ghost) => lives == 0
 
     );
@@ -70,33 +71,40 @@ function checkGameWin() {
     return !pacman.madeFirstMove || gameOver || gameWin;
   }
 
-  function  MovingAfterCollision(pacman){
-    if(pacman.currentMovingDirection == MovingDirection.up){
-      pacman.y += pacman.velocity * 20;
-    }
-    if(pacman.currentMovingDirection == MovingDirection.down){
-      pacman.y -= pacman.velocity * 20;
-
-    }if(pacman.currentMovingDirection == MovingDirection.right){
-      pacman.x -= pacman.velocity * 20;
-
-    }if(pacman.currentMovingDirection == MovingDirection.left){
-      pacman.x += pacman.velocity * 20;
-    }
-  }
-
-  
-
-function PowerDotActive(pacman){
-   return pacman.powerDotActive;
-}
-  
-
+ 
   function upgradeScore() {
     if(tileMap.eated){
       score+=10;
       scoreEl.innerHTML = score;
       tileMap.eated = false;
+    }
+  }
+  function resetPacmanAndGhosts() {
+    pacman.x = pacman.startX;
+    pacman.y = pacman.startY;
+    pacman.current = null;
+    pacman.request = null;
+  
+    ghosts.forEach((ghost) => {
+        ghost.x = ghost.startX;
+        ghost.y = ghost.startY;
+        ghost.current = MovingDirection.right;
+    });
+  }
+  
+  function checkCollisions() {
+    if (!pacman.powerDotActive) {
+        ghosts.forEach((ghost) => {
+            if (ghost.collideWith(pacman)) {
+                lives--;
+                //loseLifeSound.play();
+                resetPacmanAndGhosts();
+                if (lives === 0) {
+                    gameOver = true;
+                    gameOverSound.play();
+                }
+            }
+        });
     }
   }
 
@@ -111,35 +119,9 @@ function PowerDotActive(pacman){
     }
   }
   
-  function onGhostCollision() {
-     
-        if (lives > 0) {
-            lives--;
-            console.log(lives);
-            pacman.madeFirstMove = false;
-        
-        }
-
-        if (lives == 0) {
-            gameOver = true;
-        }
-    
-}
+  
 
 
-
-function update() {
-    ghosts.forEach((ghost) => {
-      if (ghost.collideWith(pacman)) {
-        if(PowerDotActive(pacman) == false){
-       
-          MovingAfterCollision(pacman);  
-          onGhostCollision(pacman);
-          
-        }
-      }
-    });
-}    
   
   function drawGameEnd() {
     if (gameOver || gameWin) {

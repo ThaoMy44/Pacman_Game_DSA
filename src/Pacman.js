@@ -8,6 +8,9 @@ export default class Pacman{
         this.velocity = velocity;
         this.tileMap = tileMap;
 
+        this.startX = x;
+        this.startY = y;
+
         this.current = null;
         this.request = null;
 
@@ -227,12 +230,15 @@ export default class Pacman{
     #eatGhost(ghosts) {
         if (this.powerDotActive) {
             const collideEnemies = ghosts.filter((ghost) => ghost.collideWith(this));
-            collideEnemies.forEach((ghost) => {
-                ghosts.splice(ghosts.indexOf(ghosts), 1);
-                //this.eatGhostSound.play();
+            collideEnemies.forEach((collidingGhost) => {
+                const index = ghosts.indexOf(collidingGhost);
+                if (index !== -1) {
+                    ghosts.splice(index, 1);
+                    /// this.eatGhostSound.play();
+                }
             });
         }
-    }
+}
 
 
 }
