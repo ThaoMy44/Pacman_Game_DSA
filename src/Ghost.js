@@ -1,5 +1,4 @@
 import { astar } from "./astar.js";
-import { pacman } from "./Game.js";
 import MovingDirection from "./MovingDirection.js";
 
 export default class Ghost {
@@ -31,7 +30,7 @@ export default class Ghost {
     draw(ctx, pause, pacman) {
         if (!pause){
         this.#move();
-        this.FollowPacman();
+        this.FollowPacman(pacman);
         }
         this.#setImage(ctx, pacman);
         // if (this.image) {
@@ -82,7 +81,7 @@ export default class Ghost {
         }
       }
 
-    FollowPacman() {
+    FollowPacman(pacman) {
         const pacX = pacman.x; // Pacman's x position
         const pacY = pacman.y; // Pacman's y position
         const start = [Math.floor(this.x / this.tileSize), Math.floor(this.y / this.tileSize)]; // Enemy's current position
@@ -121,6 +120,9 @@ export default class Ghost {
           }
         }
       }
+
+  
+  
       
 
     #random(min,max){
@@ -193,27 +195,19 @@ export default class Ghost {
         this.image = this.normalImage;
 
     }
+    collideWith(otherGhost) {
+      const size = this.tileSize / 2;
+      const otherSize = otherGhost.tileSize / 2;
+      if (
+          this.x < otherGhost.x + otherSize &&
+          this.x + size > otherGhost.x &&
+          this.y < otherGhost.y + otherSize &&
+          this.y + size > otherGhost.y
+      ) {
+          return true;
+      } else {
+          return false;
+      }
+  }
 
-//         draw(ctx) {
-
-//         ctx.drawImage(this.image, this.x, this.y, this.tileSize, this.tileSize);
-// }
- 
-    // #loadImage(){
-    //     this.normalImage = new Image();
-    //     this.normalImage.src = '../images/blinky.png';
-
-
-    //     this.scaredGhost = new Image();
-    //     this.scaredGhost.src = '../images/blue_ghost.png';
-
-
-    //     this.scaredGhost2 = new Image();
-    //     this.scaredGhost2.src = '../images/blue_ghost.png';
-
-
-    //     this.image = this.normalImage;
-
-    // }
-      
 }

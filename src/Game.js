@@ -94,7 +94,7 @@ function checkGameWin() {
   
   function checkCollisions() {
     if (!pacman.powerDotActive) {
-        ghosts.forEach((ghost) => {
+        ghosts.forEach((ghost, index) => {
             if (ghost.collideWith(pacman)) {
                 lives--;
                 //loseLifeSound.play();
@@ -104,9 +104,16 @@ function checkGameWin() {
                     gameOverSound.play();
                 }
             }
+            for (let i = index + 1; i < ghosts.length; i++) {
+                if (ghost.collideWithOtherGhost(ghosts[i])) {
+                    // Handle collision between ghosts
+                    // For example, reset their positions or apply some penalty
+                }
+            }
         });
     }
-  }
+}
+
 
   
 
