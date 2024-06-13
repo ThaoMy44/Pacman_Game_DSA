@@ -10,9 +10,6 @@ const velocityghost = 1;
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
-const scoreEl= document.getElementById("scoreEl");
-console.log(scoreEl)
-
 const tileMap = new TileMap(tileSize); //create object to describe
 
 export const pacman = tileMap.getPacman(velocity);
@@ -33,7 +30,7 @@ function gameLoop(){ // redraw the screen certain number of times every 1 second
     drawGameEnd();
     pacman.draw(ctx, pause(), ghosts);
     ghosts.forEach((ghost) => ghost.draw(ctx, pause(), pacman));
-    //upgradeScore();
+    upgradeScore();
     checkCollisions();
     checkGameOver();
     checkGameWin();
@@ -75,7 +72,6 @@ function checkGameWin() {
   function upgradeScore() {
     if(tileMap.eated){
       score+=10;
-      scoreEl.innerHTML = score;
       tileMap.eated = false;
     }
   }
@@ -118,6 +114,7 @@ function drawRemainingLives() {
     for (let i = 0; i < lives; i++) {
         ctx.fillText("❤️", 70 + i * 20, canvas.height - 10);
     }
+    ctx.fillText(`Score: ${score}`, canvas.width - 100, canvas.height - 10);
 }
   
 

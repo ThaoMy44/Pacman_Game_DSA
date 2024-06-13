@@ -207,14 +207,16 @@ export default class TileMap{
 
     eatDot(x,y){
         const row = y / this.tileSize;
-        const column = x / this.tileSize;
-        if(Number.isInteger(row) && Number.isInteger(column)){
-            if(this.map[row][column] === 0){
-                 this.map[row][column] = 100;
-                 return true;
+        const column = x / this.tileSize; // calculate the coordinate of dot
+        if (Number.isInteger(row) && Number.isInteger(column)) { // make sure is interger
+        // console.log(x, y);
+            if (this.map[row][column] === 0) { // on dot
+        //console.log("true");
+            this.map[row][column] = 5; //empty space
+        // return true;
+            this.eated = true;
             }
         }
-        return(false);
     }
 
     eatPowerDot(x, y) {
