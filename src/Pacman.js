@@ -14,6 +14,8 @@ export default class Pacman{
         this.current = null;
         this.request = null;
 
+        this.score = 0;
+
         this.pacmanAnimationTimerDefault = 10;
         this.pacmanAnimationTimer = null;
 
