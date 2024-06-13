@@ -104,12 +104,6 @@ function checkGameWin() {
                     gameOverSound.play();
                 }
             }
-            for (let i = index + 1; i < ghosts.length; i++) {
-                if (ghost.collideWithOtherGhost(ghosts[i])) {
-                    // Handle collision between ghosts
-                    // For example, reset their positions or apply some penalty
-                }
-            }
         });
     }
 }
@@ -117,15 +111,14 @@ function checkGameWin() {
 
   
 
-  function drawRemainingLives() {
+function drawRemainingLives() {
     ctx.font = "20px gemunu libre";
     ctx.fillStyle = "white";
     ctx.fillText(" Lives:", 5, canvas.height - 10);
     for (let i = 0; i < lives; i++) {
-      ctx.fillText("❤️", 70 + i * 20, canvas.height - 10);
+        ctx.fillText("❤️", 70 + i * 20, canvas.height - 10);
     }
-  }
-  
+}
   
 
 
