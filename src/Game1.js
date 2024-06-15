@@ -4,6 +4,8 @@ import TileMap from "./TileMap.js";
 export default class Game {
     constructor(canvas, level) {
         this.canvas = canvas;
+        this.level = level;
+
         this.ctx = canvas.getContext("2d");
 
         this.tileSize = 32;
@@ -145,5 +147,10 @@ export default class Game {
             }
         
         
+    }
+
+    start() {
+        // Implement game start logic here
+        console.log(`Game starting at level ${this.level}`);
     }
 }

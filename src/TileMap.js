@@ -8,46 +8,48 @@ export default class TileMap{
         this.tileSize = tileSize;
 
         this.yellowDot = new Image();
-        this.yellowDot.src = "./images/yellowdot.png"
+        this.yellowDot.src = "./images/food.png"
 
         this.pinkDot = new Image();
-        this.pinkDot.src = "./images/pinkDot.png"
+        this.pinkDot.src = "./images/powerfood.png"
         
         this.wall = new Image();
         this.wall.src = "./images/wall.png"
 
+        this.flower = new Image();
+        this.flower.src = "./images/flower.png"
+        
         this.powerDot = this.pinkDot;
         this.powerDotAnmationTimerDefault = 30;
         this.powerDotAnmationTimer = this.powerDotAnmationTimerDefault ;
     }
     //1 wall
+    //2 flower
     //0 dot
     //4 pacman
     //6 ghost
     //7 powerdot
     map = [
-        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-        [1, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 6, 6, 6, 6, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 7, 0, 0, 0, 0, 2, 2, 0, 0, 1, 1, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 6, 6, 6, 6, 1, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     ];
     draw(ctx){
         for(let row = 0; row < this.map.length; row++) {
@@ -61,6 +63,9 @@ export default class TileMap{
                 }
                 else if(tile == 7){
                     this.#drawPowerDot(ctx, column, row, this.tileSize);
+                }
+                else if(tile === 2 ){
+                    this.#drawFlower(ctx, column, row, this.tileSize);
                 }
                 else{
                     this.#drawBlank(ctx, column, row, this.tileSize)
@@ -80,12 +85,16 @@ export default class TileMap{
         ctx.drawImage(this.wall,column*this.tileSize, row *this.tileSize)
     }
 
+    #drawFlower(ctx, column, row, size){
+        ctx.drawImage(this.flower,column*this.tileSize, row *this.tileSize)
+    }
+
     #drawDot(ctx, column, row, size){
         ctx.drawImage(this.yellowDot,column*this.tileSize, row *this.tileSize)
     }
 
     #drawBlank(ctx, column, row, size){
-        ctx.fillStyle = "black";
+        ctx.fillStyle = "#00a99d";
         ctx.fillRect(column*this.tileSize, row *this.tileSize,size,size)
     }
 
@@ -152,50 +161,52 @@ export default class TileMap{
         canvas.height = this.map.length * this.tileSize;
     }
 
-    didCollideWithEnvironment(x,y,direction){
-        if(direction == null){
-            return
+    didCollideWithEnvironment(x, y, direction) {
+        if (direction == null) {
+          return;
         }
-        if(Number.isInteger(x/ this.tileSize)&&
-        Number.isInteger(y/ this.tileSize))
-        {
-            let column = 0;
-            let row = 0;
-            let nextColumn = 0;
-            let nextRow = 0;
-
-            switch(direction){
-                case MovingDirection.right:
-                    nextColumn = x + this.tileSize;
-                    column = nextColumn / this.tileSize;
-                    row = y / this.tileSize;
-                    break;
-
-                case MovingDirection.left:
-                    nextColumn = x - this.tileSize;
-                    column = nextColumn / this.tileSize;
-                    row = y / this.tileSize;
-                    break;
-
-                case MovingDirection.up:
-                    nextRow = y - this.tileSize;
-                    row = nextRow / this.tileSize;
-                    column = x / this.tileSize;
-                    break;
-                case MovingDirection.down:
-                    nextRow = y + this.tileSize;
-                    row = nextRow / this.tileSize;
-                    column = x / this.tileSize;
-                    break;
-                   
-            }
-            const  tile = this.map[row][column];
-            if (tile === 1){
-                return true;
-            }    
-        }
-        return false;
+    
+        if (
+          Number.isInteger(x / this.tileSize) &&
+          Number.isInteger(y / this.tileSize)
+        ) {
+          let column = 0;
+          let row = 0;
+          let nextColumn = 0;
+          let nextRow = 0;
+    
+          switch (direction) {
+            case MovingDirection.right:
+              nextColumn = x + this.tileSize;
+              column = nextColumn / this.tileSize;
+              row = y / this.tileSize;
+              break;
+            case MovingDirection.left:
+              nextColumn = x - this.tileSize;
+              column = nextColumn / this.tileSize;
+              row = y / this.tileSize;
+              break;
+            case MovingDirection.up:
+              nextRow = y - this.tileSize;
+              row = nextRow / this.tileSize;
+              column = x / this.tileSize;
+              break;
+            case MovingDirection.down:
+              nextRow = y + this.tileSize;
+              row = nextRow / this.tileSize;
+              column = x / this.tileSize;
+              break;
+          }
+          const tile = this.map[row][column];
+          if (tile === 2) {
+            return true;
+          }
+          else if (tile === 1) {
+            return true;
+          }
     }
+    return false;
+}
 
     didWin() {
         return this.#dotsLeft() === 0;
@@ -205,18 +216,31 @@ export default class TileMap{
         return this.map.flat().filter((tile) => tile === 0).length;
     }
 
-    eatDot(x,y){
-        const row = y / this.tileSize;
-        const column = x / this.tileSize; // calculate the coordinate of dot
-        if (Number.isInteger(row) && Number.isInteger(column)) { // make sure is interger
-        // console.log(x, y);
-            if (this.map[row][column] === 0) { // on dot
-        //console.log("true");
-            this.map[row][column] = 5; //empty space
-        // return true;
+    // eatDot(x,y){
+    //     const row = y / this.tileSize;
+    //     const column = x / this.tileSize; // calculate the coordinate of dot
+    //     if (Number.isInteger(row) && Number.isInteger(column)) { // make sure is interger
+    //     // console.log(x, y);
+    //         if (this.map[row][column] === 0) { // on dot
+    //     //console.log("true");
+    //         this.map[row][column] = 5; //empty space
+    //     // return true;
+    //         this.eated = true;
+    //         }
+    //     }
+    // }
+
+    eatDot(x, y) {
+        const row = Math.floor(y / this.tileSize);
+        const column = Math.floor(x / this.tileSize);
+    
+        if (this.map[row][column] === 0) {
+            this.map[row][column] = 5; // Set tile to empty space (or another appropriate value)
             this.eated = true;
-            }
+            return true; // Dot eaten successfully
         }
+    
+        return false; // No dot to eat at given position
     }
 
     eatPowerDot(x, y) {
