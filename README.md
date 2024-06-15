@@ -2,26 +2,19 @@
 <img src="./assets/img/banner.gif" alt="Banner">
 </div>
 
-<div align="center">
 
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-
-</div>
 
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-    <img src="./assets/img/logo.jpg" alt="Logo" width="250">
+<!--     <img src="./assets/img/logo.jpg" alt="Logo" width="250"> -->
 </a>
 
 <h3 align="center">ALGORITHM & DATA STRUCTURES</h3>
 
 
   <p align="center">
-    An online game created with HTML, CSS, Javascript and p5.js for Algorithm & Data Structures course in International University - VNUHCM!
+    An online game created with HTML, CSS, Javascript for Algorithm & Data Structures course in International University - VNUHCM!
     <br />
     <br />
   </p>
@@ -33,9 +26,8 @@
 
 1. [Introduction](#Introduction)
 2. [Techniques](#Techniques)
-3. [Charts](#Charts)
-4. [Features](#Features)
-5. [Acknowledgments](#Acknowledgments)
+3. [Features](#Features)
+4. [Acknowledgments](#Acknowledgments)
 
 
 ## Introduction <a name="Introduction"></a> :bricks:
@@ -62,11 +54,11 @@ The AI, unlike a standard enemy-player tracker, will utilize various search algo
 
 Our goal is to make a pathfinder that is not only efficient in determining the shortest path but also can be adaptable to changing target and obstacles.
 
-## Getting Started :mechanical_arm:
+### Getting Started :mechanical_arm:
 
 You can simply double click on `menu.html` or click straight to `index.html`  and use the app. 
 
-## Why is A*? :mechanical_arm:
+### Why is A*? :mechanical_arm:
 A* is chosen for pathfinding in this scenario because it is more efficient than BFS, especially in large and complex environments. A* uses a heuristic to direct its search towards the target, leading to faster solutions. Additionally, it guarantees an optimal path if one exists, unlike BFS which is less efficient in large search spaces.
 
 
