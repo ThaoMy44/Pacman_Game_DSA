@@ -12,7 +12,7 @@ export default class Game {
         this.tileMap = new TileMap(this.tileSize);
 
         this.pacman = this.tileMap.getPacman(this.velocity);
-        this.ghosts = this.tileMap.getGhosts(this.velocity);
+        this.ghosts = this.tileMap.getGhosts(this.velocityGhost);
 
         this.gameOver = false;
         this.gameWin = false;
@@ -27,20 +27,24 @@ export default class Game {
     setDifficulty(level) {
         switch (level) {
             case 'easy':
-                this.velocity = 1;
-                this.lives = 1;
+                this.velocity = 1.5;
+                this.velocityGhost = 1;
+                this.lives = 3;
                 break;
             case 'medium':
                 this.velocity = 2;
-                this.lives = 1;
+                this.velocityGhost = 2;
+                this.lives = 2;
                 break;
             case 'hard':
                 this.velocity = 3;
+                this.velocityGhost = 2;
                 this.lives = 1;
                 break;
             default:
-                this.velocity = 1;
-                this.lives = 1;
+                this.velocity = 2;
+                this.velocityGhost = 2
+                this.lives = 2;
         }
     }
 
@@ -135,20 +139,11 @@ export default class Game {
     }
     
     drawGameEnd() {
-        if (this.gameOver || this.gameWin) {
-            let text = this.gameWin ? " YOU WIN!" : "GAME OVER";
-
-            this.ctx.fillStyle = "black";
-            this.ctx.fillRect(0, this.canvas.height / 3.2, this.canvas.width, 80);
-
-            this.ctx.font = "60px arial";
-            const gradient = this.ctx.createLinearGradient(0, 0, this.canvas.width, 0);
-            gradient.addColorStop("0", "yellow");
-            gradient.addColorStop("0.5", "red");
-            gradient.addColorStop("1.0", "red");
-
-            this.ctx.fillStyle = gradient;
-            this.ctx.fillText(text, 150, 260);
-        }
+            if (this.gameOver || this.gameWin) {
+                let result = this.gameWin ? "win" : "lose";
+                window.location.href = `endGame.html?result=${result}`;
+            }
+        
+        
     }
 }
