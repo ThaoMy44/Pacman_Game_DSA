@@ -5,6 +5,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const buttons = document.querySelectorAll('.level-button');
 
     buttons.forEach(button => {
+        button.addEventListener('click', () => {
+            const backgroundAudio = document.getElementById('backgroundAudio');
+            backgroundAudio.pause();
+            backgroundAudio.currentTime = 0; // Reset audio to beginning
+        });
+    });
+    buttons.forEach(button => {
         button.addEventListener('click', (event) => {
             const level = event.target.getAttribute('data-level');
             startGame(level);

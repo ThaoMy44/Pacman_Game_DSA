@@ -23,6 +23,8 @@ export default class Game {
         this.gameOverSound = new Audio("sounds/gameOver.wav");
         this.gameWinSound = new Audio("sounds/gameWin.wav");
 
+        
+
         this.init();
 
     }
