@@ -7,6 +7,8 @@ export default class TileMap{
     constructor(tileSize){
         this.tileSize = tileSize;
 
+        this.eated = false;
+
         this.yellowDot = new Image();
         this.yellowDot.src = "./images/food.png"
 
@@ -18,6 +20,22 @@ export default class TileMap{
 
         this.flower = new Image();
         this.flower.src = "./images/flower.png"
+
+        this.tree = new Image();
+        this.tree.src = "./images/tree.png"
+
+        this.truck = new Image();
+        this.truck.src = "./images/tree2.png"
+
+        this.heartRed = new Image();
+        this.heartRed.src = "images/heart.png";
+
+        this.heartGreen = new Image();
+        this.heartGreen.src = "images/heart_green.png";
+
+        this.heart = this.heartRed;
+        this.heartAnimationTimerDefault = 10;
+        this.heartAnimationTimer = this.heartAnimationTimerDefault;
         
         this.powerDot = this.pinkDot;
         this.powerDotAnmationTimerDefault = 30;
@@ -29,26 +47,30 @@ export default class TileMap{
     //4 pacman
     //6 ghost
     //7 powerdot
+    //8 heart
+
+    //9 tree
+    //10 truck
     map = [
-        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-        [1, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 7, 0, 0, 0, 0, 2, 2, 0, 0, 1, 1, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 6, 6, 6, 6, 1, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 9, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 0, 0, 4, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 2, 2, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 2, 2, 0, 0, 1],
+        [1, 0, 0, 2, 2, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 2, 2, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 9, 2, 2, 0, 0, 0, 2, 2, 2, 2, 0, 6, 0, 2, 2, 9, 0, 1],
+        [1, 0, 10, 0, 0, 0, 0, 0, 0, 9, 9, 0, 0, 0, 0, 0, 0, 10, 0, 1],
+        [1, 2, 2, 0, 0, 2, 2, 0, 0, 10, 10, 0, 0, 2, 2, 0, 0, 2, 2, 1],
+        [1, 0, 0, 0, 7, 0, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 1],
+        [1, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 6, 1],
         [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
         [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 9, 9, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 2, 2, 0, 0, 0, 0, 2, 2, 10, 10, 2, 2, 0, 0, 0, 0, 2, 2, 1],
         [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 2, 2, 2, 2, 2, 0, 0, 9, 9, 0, 0, 2, 2, 2, 2, 2, 0, 1],
+        [1, 0, 6, 0, 0, 0, 0, 0, 0, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 1],
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     ];
     draw(ctx){
@@ -66,6 +88,15 @@ export default class TileMap{
                 }
                 else if(tile === 2 ){
                     this.#drawFlower(ctx, column, row, this.tileSize);
+                } 
+                else if(tile == 8){
+                    this.#drawHeart(ctx, column, row, this.tileSize);
+                }
+                else if(tile == 9){
+                    this.#drawTree(ctx, column, row, this.tileSize);
+                }
+                else if(tile == 10){
+                    this.#drawTruck(ctx, column, row, this.tileSize);
                 }
                 else{
                     this.#drawBlank(ctx, column, row, this.tileSize)
@@ -89,6 +120,14 @@ export default class TileMap{
         ctx.drawImage(this.flower,column*this.tileSize, row *this.tileSize)
     }
 
+    #drawTree(ctx, column, row, size){
+        ctx.drawImage(this.tree,column*this.tileSize, row *this.tileSize)
+    }
+
+    #drawTruck(ctx, column, row, size){
+        ctx.drawImage(this.truck,column*this.tileSize, row *this.tileSize)
+    }
+
     #drawDot(ctx, column, row, size){
         ctx.drawImage(this.yellowDot,column*this.tileSize, row *this.tileSize)
     }
@@ -103,13 +142,27 @@ export default class TileMap{
         if (this.powerDotAnmationTimer === 0) {
           this.powerDotAnmationTimer = this.powerDotAnmationTimerDefault;
           if (this.powerDot == this.pinkDot) {
-            this.powerDot = this.yellowDot;
+            this.powerDot = this.pinkDot;
           } else {
             this.powerDot = this.pinkDot;
           }
         }
         ctx.drawImage(this.powerDot, column * size, row * size, size, size);
     }
+    #drawHeart(ctx, column, row, size){
+        this.heartAnimationTimer--;
+        if (this.heartAnimationTimer === 0) {
+          this.heartAnimationTimer = this.heartAnimationTimerDefault;
+          if (this.heart == this.heartRed) {
+            this.heart = this.heartGreen;
+          } else {
+            this.heart = this.heartRed;
+          }
+        }
+        ctx.drawImage(this.heart, column * size, row * size, size, size);
+    
+    
+      }
 
     getPacman(velocity){
         for(let row = 0; row < this.map.length; row++){
@@ -204,6 +257,10 @@ export default class TileMap{
           else if (tile === 1) {
             return true;
           }
+          else if (tile === 9) {
+            return true;
+        } else if (tile === 10) {
+            return true;}
     }
     return false;
 }
@@ -255,4 +312,18 @@ export default class TileMap{
         }
         return false;
       }
+
+    eatHeart(x,y){
+        const row = Math.floor(y / this.tileSize);
+        const column = Math.floor(x / this.tileSize);
+        if (Number.isInteger(row) && Number.isInteger(column)) {
+            const tile = this.map[row][column];
+            if (tile === 8) {
+                this.map[row][column] = 5;
+            return true;
+        }
+    }
+    return false;
+
+    }
 }

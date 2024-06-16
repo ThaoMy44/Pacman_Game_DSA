@@ -4,15 +4,53 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Over</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Game Result</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@300&display=swap');
+        body {
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 750px;
+            background-color: #000;
+            color: #fff;
+            font-family: 'Gemunu Libre', sans-serif;
+        }
+        #game-result {
+            font-size: 100px;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        #instructions {
+            font-size: 20px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
     <div id="end-game">
         <h1 id="game-result"></h1>
-        <button id="restart-button">Restart</button>
-        <button id="home-button">Home</button>
+        <h4 id="instructions">"Press any key to return to the menu"</h4>
     </div>
-    <script src="./src/endGame.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const params = new URLSearchParams(window.location.search);
+            const result = params.get('result');
+            const gameResultElement = document.getElementById('game-result');
+
+            if (result === 'win') {
+                gameResultElement.textContent = 'YOU WIN!';
+            } else if (result === 'lose') {
+                gameResultElement.textContent = 'GAME OVER';
+            }
+
+            document.addEventListener('keydown', function() {
+                window.location.href = 'menu.html';
+            });
+        });
+    </script>
 </body>
 </html>

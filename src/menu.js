@@ -14,13 +14,15 @@ document.addEventListener('DOMContentLoaded', () => {
     function startGame(level) {
         console.log(`Starting game at ${level} level`);
         menu.style.display = 'none';
-        gameContainer.style.display = 'block';
+        gameContainer.style.display = 'flex'; 
 
         // Initialize and start the game with the selected difficulty level
         import('./Game1.js').then(module => {
             const Game = module.default;
             const game = new Game(gameCanvas, level);
             game.start();
+        }).catch(error => {
+            console.error('Error loading the game module:', error);
         });
     }
 });

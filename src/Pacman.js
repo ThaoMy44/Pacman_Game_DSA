@@ -27,6 +27,11 @@ export default class Pacman{
         this.powerDotAboutToExpire = false;
         this.timers =[];
 
+        this.heartActive = false;
+        this.heartAboutToExpire = false;
+        this.timer1 = [];
+
+
         this.madeFirstMove = false;
 
         document.addEventListener("keydown", this.#keydown)
@@ -44,6 +49,7 @@ export default class Pacman{
         }
         this.#eatDot();
         this.#eatPowerDot();
+        this.#eatHeart();
         this.#eatGhost(ghosts);
         
         const size = this.tileSize /2;
@@ -241,6 +247,45 @@ export default class Pacman{
             });
         }
 }
+
+#eatHeart(){
+    if(this.tileMap.eatHeart(this.x, this.y)){
+        this.powerDotSound.play();
+        
+        this.heartActive = true;
+        this.heartAboutToExpire =false;
+        this.timer1.forEach((timer) => clearTimeout(timer));
+        this.timer1 = [];
+
+        let heartTimer = setTimeout(() => {
+          
+            this.heartActive = false;
+            this.heartAboutToExpire= false;
+            
+          }, 1000 * 5);
+    
+          this.timer1.push(heartTimer);
+    
+          let heartAboutToExpireTimer = setTimeout(() => {
+        
+            this.heartAboutToExpire = true;
+          }, 1000 * 3);
+    
+          this.timers.push(heartAboutToExpireTimer);
+
+
+    }
+  
+}
+
+
+velocityChange(){
+    if(this.heartActive){
+        this.velocity = 4;
+    }else{
+        this.velocity = 2;
+    }
+  }
 
 
 }

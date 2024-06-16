@@ -1,24 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pacman</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pac-Man</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="background">
+        <img class="bg-image" src="/images/dot9 (4).png" />
+        <!-- <img class="bg-image" src="/images/title.png" />
+        <img class="bg-image" src="/images/outline-ttl-img.gif" /> -->
+    </div>
     <div id="menu">
-      <h1>Pac-Man</h1>
-      <button class="level-button" data-level="easy">Easy</button>
-      <button class="level-button" data-level="medium">Medium</button>
-      <button class="level-button" data-level="hard">Hard</button>
+        
+        <h4>Choose the level</h4>
+        <div class="level-buttons">
+            <button class="level-button" data-level="easy">Easy</button>
+            <button class="level-button" data-level="medium">Medium</button>
+            <button class="level-button" data-level="hard">Hard</button>
+        </div>
     </div>
-    <div id="gameContainer" style="display: none">
-      <h1>Pac-Man</h1>
-      <canvas id="gameCanvas" ></canvas>
+    
+    <div id="gameContainer" style="display: none;">
+        <h1>Pac-Man</h1>
+        <canvas id="gameCanvas"></canvas>
     </div>
-    <script src="./src/Game1.js" type="module"></script>
     <script src="./src/menu.js"></script>
-  </body>
+</body>
 </html>

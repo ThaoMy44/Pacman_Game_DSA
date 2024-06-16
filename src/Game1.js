@@ -21,6 +21,7 @@ export default class Game {
         this.score = 0;
 
         this.gameOverSound = new Audio("sounds/gameOver.wav");
+        this.gameWinSound = new Audio("sounds/gameWin.wav");
 
         this.init();
 
@@ -141,12 +142,10 @@ export default class Game {
     }
     
     drawGameEnd() {
-            if (this.gameOver || this.gameWin) {
-                let result = this.gameWin ? "win" : "lose";
-                window.location.href = `endGame.html?result=${result}`;
-            }
-        
-        
+        if (this.gameOver || this.gameWin) {
+            let result = this.gameWin ? "win" : "lose";
+            window.location.href = `endGame.html?result=${result}`;
+        }
     }
 
     start() {
