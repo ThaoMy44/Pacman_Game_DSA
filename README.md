@@ -61,6 +61,12 @@ You can simply double click on `menu.html` or click straight to `index.html`  an
 ### Why is A*? :mechanical_arm:
 A* is chosen for pathfinding in this scenario because it is more efficient than BFS, especially in large and complex environments. A* uses a heuristic to direct its search towards the target, leading to faster solutions. Additionally, it guarantees an optimal path if one exists, unlike BFS which is less efficient in large search spaces.
 
+### UML
+<div align="center">
+    <img src="./asset/UML.png" alt="">
+</div>
+
+
 
 
 ## Techniques <a name="Techniques"></a>:joystick:
