@@ -76,7 +76,7 @@ export default class Game {
         if (!this.gameWin) {
             this.gameWin = this.tileMap.didWin();
             if (this.gameWin) {
-                //gameWinSound.play();
+                gameWinSound.play();
             }
         }
     }
@@ -85,7 +85,7 @@ export default class Game {
         if (!this.gameOver) {
             this.gameOver = this.isGameOver();
             if (this.gameOver) {
-                //this.gameOverSound.play();
+                this.gameOverSound.play();
             }
         }
     }

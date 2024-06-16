@@ -20,12 +20,16 @@ export default class Pacman{
         this.pacmanAnimationTimer = null;
 
         this.pacmanRotation = this.Rotation.right;
-        this.wakaSound = new Audio("./sounds/8bit-music-for-game-68698.mp3");
+        this.wakaSound = new Audio("./sounds/waka.wav");
+
+        this.collisionSound = new Audio("./sounds/eatdot.wav");
 
         this.powerDotSound = new Audio("./sounds/power_dot.wav");
         this.powerDotActive = false;
         this.powerDotAboutToExpire = false;
         this.timers =[];
+
+        this.eatGhostSound = new Audio("sounds/eat_ghost.wav");
 
         this.heartActive = false;
         this.heartAboutToExpire = false;
@@ -208,7 +212,7 @@ export default class Pacman{
         if(this.tileMap.eatDot(this.x,this.y)){
             //play sound
             
-            //this.wakaSound.play();         
+            this.wakaSound.play();         
         }
     }
 
@@ -242,7 +246,10 @@ export default class Pacman{
                 const index = ghosts.indexOf(collidingGhost);
                 if (index !== -1) {
                     ghosts.splice(index, 1);
-                    /// this.eatGhostSound.play();
+                    this.eatGhostSound.play();
+                }
+                else {
+                    this.collisionSound.play(); // Play collision sound if not powered up
                 }
             });
         }

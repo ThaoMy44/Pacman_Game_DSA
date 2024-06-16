@@ -14,7 +14,6 @@
         <img class="bg-image" src="/images/outline-ttl-img.gif" /> -->
     </div>
     <div id="menu">
-        
         <h4>Choose the level</h4>
         <div class="level-buttons">
             <button class="level-button" data-level="easy">Easy</button>
@@ -22,11 +21,40 @@
             <button class="level-button" data-level="hard">Hard</button>
         </div>
     </div>
-    
+    <!-- <audio id="backgroundSound" src="./sounds/cottagecore-17463.mp3" type="audio/wav"></audio> -->
     <div id="gameContainer" style="display: none;">
         <h1>Pac-Man</h1>
         <canvas id="gameCanvas"></canvas>
     </div>
     <script src="./src/menu.js"></script>
+    <!-- <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const backgroundSound = document.getElementById('backgroundSound');
+            const levelButtons = document.querySelectorAll('.level-button');
+
+            function playSound() {
+                backgroundSound.play().catch(error => {
+                    console.log('Audio playback failed:', error);
+                });
+                document.removeEventListener('click', playSound); // Remove the event listener after the first interaction
+            }
+
+            function stopSound() {
+                backgroundSound.pause();
+                backgroundSound.currentTime = 0; // Reset the sound to the beginning
+            }
+
+            document.addEventListener('click', playSound);
+
+            levelButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    stopSound();
+                    // Additional code to start the game at the selected level can be added here
+                    document.getElementById('menu').style.display = 'none';
+                    document.getElementById('gameContainer').style.display = 'block';
+                });
+            }); -->
+        <!-- });
+    </script> -->
 </body>
 </html>
