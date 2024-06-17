@@ -120,26 +120,33 @@ function drawRemainingLives() {
 
 
   
+//   function drawGameEnd() {
+//     if (gameOver || gameWin) {
+//       let text = " YOU WIN!";
+//       if (gameOver) {
+//         text = "GAME OVER";
+//       }
+  
+//       ctx.fillStyle = "black";
+//       ctx.fillRect(0, canvas.height / 3.2, canvas.width, 80);
+  
+//       ctx.font = "60px arial";      
+//       const gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
+//       gradient.addColorStop("0", "yellow");
+//       gradient.addColorStop("0.5", "red");
+//       gradient.addColorStop("1.0", "red");
+  
+//       ctx.fillStyle = gradient;
+//       ctx.fillText(text, 150, 260);
+//     }
+//   }
+
   function drawGameEnd() {
     if (gameOver || gameWin) {
-      let text = " YOU WIN!";
-      if (gameOver) {
-        text = "GAME OVER";
-      }
-  
-      ctx.fillStyle = "black";
-      ctx.fillRect(0, canvas.height / 3.2, canvas.width, 80);
-  
-      ctx.font = "60px arial";      
-      const gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
-      gradient.addColorStop("0", "yellow");
-      gradient.addColorStop("0.5", "red");
-      gradient.addColorStop("1.0", "red");
-  
-      ctx.fillStyle = gradient;
-      ctx.fillText(text, 150, 260);
+        let result = gameWin ? "win" : "lose";
+        window.location.href = `endGame.html?result=${result}`;
     }
-  }
+}
   
 tileMap.setCanvasSize(canvas);
 setInterval(gameLoop, 1000 / 75); //call the funtion every x periods of times (milliseconds) (1000 millseconds = 1 seconds / 75 )

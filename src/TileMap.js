@@ -257,9 +257,9 @@ export default class TileMap{
           else if (tile === 1) {
             return true;
           }
-          else if (tile === 9) {
-            return true;
-        } else if (tile === 10) {
+        //   else if (tile === 9) {
+        //     return true;} 
+        else if (tile === 10) {
             return true;}
     }
     return false;

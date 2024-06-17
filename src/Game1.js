@@ -32,7 +32,7 @@ export default class Game {
     setDifficulty(level) {
         switch (level) {
             case 'easy':
-                this.velocity = 1.5;
+                this.velocity = 1;
                 this.velocityGhost = 1;
                 this.lives = 3;
                 break;
@@ -42,7 +42,7 @@ export default class Game {
                 this.lives = 2;
                 break;
             case 'hard':
-                this.velocity = 3;
+                this.velocity = 2;
                 this.velocityGhost = 2;
                 this.lives = 1;
                 break;
