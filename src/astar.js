@@ -1,94 +1,94 @@
-export function astar(map, start, end) {
-    // Define the Node class
-    class Node {
-        constructor(x, y) {
-            this.x = x;
-            this.y = y;
-            this.g = 0; // Distance from the start node
-            this.h = 0; // Heuristic (Manhattan distance to end node)
-            this.f = 0; // Sum of g and h
-            this.parent = null; // Parent node
-        }
-    }
 
-    // Function to calculate the Manhattan distance heuristic
-    function heuristic(node, end) {
-        return Math.abs(node.x - end.x) + Math.abs(node.y - end.y);
+class Node {
+    constructor(x, y) {
+      this.x = x;
+      this.y = y;
+      this.g = 0; //distance from the node to the start node
+      this.h = 0;  //distance from the node to the target node
+      this.f = 0; //f =g +h
+      this.parent = null;
     }
-
-    // Initialize start and end nodes
+  }
+  
+  export function astar(map, start, end) {
+    let openList = [];// list of node with start to search
+    let closedList = [];// list of node already process
+    let width = map[0].length;
+    let height = map.length;
+  
     let startNode = new Node(start[0], start[1]);
     let endNode = new Node(end[0], end[1]);
-
-    // Initialize open and closed lists
-    let openList = [startNode];
-    let closedList = [];
-
+  
+    openList.push(startNode);
+  
     while (openList.length > 0) {
-        // Get the node with the lowest f value from the open list
-        let currentNode = openList.reduce((minNode, node) => node.f < minNode.f ? node : minNode, openList[0]);
-
-        // Move current node from open to closed list
-        openList = openList.filter(node => node !== currentNode);
-        closedList.push(currentNode);
-
-        // Check if current node is the end node
-        if (currentNode.x === endNode.x && currentNode.y === endNode.y) {
-            // Reconstruct path and return it
-            let path = [];
-            let current = currentNode;
-            while (current !== null) {
-                path.push([current.x, current.y]);
-                current = current.parent;
-            }
-            return path.reverse();
+      let currentNode = openList[0];
+      let currentIndex = 0;
+  
+      for (let i = 1; i < openList.length; i++) {
+        if (openList[i].f < currentNode.f) {
+          currentNode = openList[i];
+          currentIndex = i;
         }
-
-        // Generate neighbors of the current node
-        let neighbors = [];
-        const directions = [
-            { dx: 0, dy: -1 }, // up
-            { dx: 0, dy: 1 },  // down
-            { dx: -1, dy: 0 }, // left
-            { dx: 1, dy: 0 }   // right
-        ];
-
-        for (let { dx, dy } of directions) {
-            let neighborX = currentNode.x + dx;
-            let neighborY = currentNode.y + dy;
-            if (
-                neighborX >= 0 && neighborX < map[0].length &&
-                neighborY >= 0 && neighborY < map.length &&
-                map[neighborY][neighborX] !== 1 // Check if not a wall
-            ) {
-                neighbors.push(new Node(neighborX, neighborY));
-            }
+      }
+  
+      openList.splice(currentIndex, 1);
+      closedList.push(currentNode);
+  
+      if (currentNode.x === endNode.x && currentNode.y === endNode.y) {
+        let path = [];
+        let current = currentNode;
+        while (current !== null) {
+          path.push([current.x, current.y]);
+          current = current.parent;
         }
-
-        // Process each neighbor
-        for (let neighbor of neighbors) {
-            // Skip if neighbor is in closed list
-            if (closedList.some(node => node.x === neighbor.x && node.y === neighbor.y)) {
-                continue;
-            }
-
-            // Calculate tentative g value
-            let tentativeG = currentNode.g + 1; // Assuming each step costs 1
-
-            // Add neighbor to open list if it's not there or if new path is shorter
-            if (!openList.some(node => node.x === neighbor.x && node.y === neighbor.y) || tentativeG < neighbor.g) {
-                neighbor.g = tentativeG;
-                neighbor.h = heuristic(neighbor, endNode);
-                neighbor.f = neighbor.g + neighbor.h;
-                neighbor.parent = currentNode;
-
-                if (!openList.some(node => node.x === neighbor.x && node.y === neighbor.y)) {
-                    openList.push(neighbor);
-                }
-            }
+        return path.reverse();
+      }
+  
+      let neighbors = [];
+  
+      // map[y][x] !== 1
+      // map optimizer, make 0, 5, 7 to 0
+      // else 1
+      const possibleOption = [0, 4, 5, 6, 7];
+      
+      // left
+      if (currentNode.x - 1 >= 0 && possibleOption.includes(map[currentNode.y][currentNode.x - 1])) {
+        neighbors.push(new Node(currentNode.x - 1, currentNode.y));
+      }
+  
+      // right
+      if (currentNode.x + 1 < width && possibleOption.includes(map[currentNode.y][currentNode.x + 1])) {
+        neighbors.push(new Node(currentNode.x + 1, currentNode.y));
+      }
+  
+      // up
+      if (currentNode.y - 1 >= 0 && possibleOption.includes(map[currentNode.y - 1][currentNode.x])) {
+        neighbors.push(new Node(currentNode.x, currentNode.y - 1));
+      }
+  
+      // down
+      if (currentNode.y + 1 < height && possibleOption.includes(map[currentNode.y + 1][currentNode.x])) {
+        neighbors.push(new Node(currentNode.x, currentNode.y + 1));
+      }
+  
+      for (let neighbor of neighbors) {
+        if (closedList.find(node => node.x === neighbor.x && node.y === neighbor.y)) {
+          continue;
         }
+  
+        neighbor.g = currentNode.g + 1;
+        neighbor.h = Math.abs(neighbor.x - endNode.x) + Math.abs(neighbor.y - endNode.y);
+        neighbor.f = neighbor.g + neighbor.h;
+  
+        if (openList.find(node => node.x === neighbor.x && node.y === neighbor.y && neighbor.g >= node.g)) {
+          continue;
+        }
+  
+        neighbor.parent = currentNode;
+        openList.push(neighbor);
+      }
     }
-
-    // No path found
+  
     return [];
-}
+  }

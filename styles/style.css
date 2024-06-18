@@ -51,7 +51,7 @@ body {
 
 #menu {
     width: 416px;
-    height: 200px;
+    height: 150px;
     left: 750px;
     top: 550px;
     transform: translate(-50%, -50%);
@@ -63,7 +63,7 @@ body {
     display: flex;
     justify-content: center;
     gap: 10px;
-    margin-top:20px;
+    margin-top:10px;
 }
 
 button {
@@ -72,8 +72,8 @@ button {
     cursor: pointer;
     border: none;
     border-radius: 5px;
-    border: 1px solid white; /* Changed border property */
-    background-color: black;
+    border: 3px solid black; /* Changed border property */
+    background-color: #00a700;
     color: white;
     font-family: 'Gemunu Libre', sans-serif;
 }
@@ -81,7 +81,7 @@ button {
 
 
 button:hover, .start-game-button:hover {
-    background-color: #00a99d;
+    background-color: black;
 }
 
 #gameContainer {
