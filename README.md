@@ -1,5 +1,5 @@
-<div id="top" align ="center">
-<img src="./assets/img/banner.gif" alt="Banner">
+<!-- <div id="top" align ="center">
+<img src="./assets/img/banner.gif" alt="Banner"> -->
 </div>
 
 
@@ -7,7 +7,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-<!--     <img src="./assets/img/logo.jpg" alt="Logo" width="250"> -->
+    <img src="./asset/logo.png" alt="Logo" width="250">
 </a>
 
 <h3 align="center">ALGORITHM & DATA STRUCTURES</h3>
