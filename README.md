@@ -36,14 +36,6 @@
 <!-- <img src="./assets/screenshots/intro.gif" alt=""> -->
 </div>
 
-<div style="text-align:justify">
-
-Intro
-
-</div>
-
-
-
 ### Abstract :mechanical_arm:
 
 <div style="text-align:justify">
