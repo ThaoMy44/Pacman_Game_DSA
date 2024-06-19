@@ -1,6 +1,8 @@
 import Ghost from "./Ghost.js";
 import MovingDirection from "./MovingDirection.js";
 import Pacman from "./Pacman.js";
+import Queue from "./Queue.js";
+import Stack from "./Stack.js";
  
 
 export default class TileMap{
@@ -40,6 +42,10 @@ export default class TileMap{
         this.powerDot = this.pinkDot;
         this.powerDotAnmationTimerDefault = 30;
         this.powerDotAnmationTimer = this.powerDotAnmationTimerDefault ;
+
+        this.dotQueue = new Queue();
+        this.powerDotStack = new Stack();
+        this.#initializeDots();
     }
     //1 wall
     //2 flower
@@ -136,6 +142,19 @@ export default class TileMap{
         ctx.fillStyle = "#00a99d";
         ctx.fillRect(column*this.tileSize, row *this.tileSize,size,size)
     }
+    #initializeDots() {
+        for (let row = 0; row < this.map.length; row++) {
+            for (let column = 0; column < this.map[row].length; column++) {
+                let tile = this.map[row][column];
+                if (tile === 0) {
+                    this.dotQueue.enqueue({ row, column });
+                } else if (tile === 7) {
+                    this.powerDotStack.push({ row, column });
+                }
+            }
+        }
+    }
+    
 
     #drawPowerDot(ctx, column, row, size){
         this.powerDotAnmationTimer--;
@@ -273,45 +292,58 @@ export default class TileMap{
         return this.map.flat().filter((tile) => tile === 0).length;
     }
 
-    // eatDot(x,y){
-    //     const row = y / this.tileSize;
-    //     const column = x / this.tileSize; // calculate the coordinate of dot
-    //     if (Number.isInteger(row) && Number.isInteger(column)) { // make sure is interger
-    //     // console.log(x, y);
-    //         if (this.map[row][column] === 0) { // on dot
-    //     //console.log("true");
-    //         this.map[row][column] = 5; //empty space
-    //     // return true;
-    //         this.eated = true;
-    //         }
-    //     }
-    // }
-
     eatDot(x, y) {
         const row = Math.floor(y / this.tileSize);
         const column = Math.floor(x / this.tileSize);
     
         if (this.map[row][column] === 0) {
-            this.map[row][column] = 5; // Set tile to empty space (or another appropriate value)
+            this.map[row][column] = 5; // Set tile to empty space
             this.eated = true;
+            this.dotQueue.dequeue(); // Remove from queue
             return true; // Dot eaten successfully
         }
     
         return false; // No dot to eat at given position
     }
-
+    
     eatPowerDot(x, y) {
-        const row = y / this.tileSize;
-        const column = x / this.tileSize;
-        if (Number.isInteger(row) && Number.isInteger(column)) {
-          const tile = this.map[row][column];
-          if (tile === 7) {
-            this.map[row][column] = 5;
-            return true;
-          }
+        const row = Math.floor(y / this.tileSize);
+        const column = Math.floor(x / this.tileSize);
+    
+        if (this.map[row][column] === 7) {
+            this.map[row][column] = 5; // Set tile to empty space
+            this.powerDotStack.pop(); // Remove from stack
+            return true; // Power dot eaten successfully
         }
-        return false;
-      }
+    
+        return false; // No power dot to eat at given position
+    }
+    
+    // eatDot(x, y) {
+    //     const row = Math.floor(y / this.tileSize);
+    //     const column = Math.floor(x / this.tileSize);
+    
+    //     if (this.map[row][column] === 0) {
+    //         this.map[row][column] = 5; // Set tile to empty space (or another appropriate value)
+    //         this.eated = true;
+    //         return true; // Dot eaten successfully
+    //     }
+    
+    //     return false; // No dot to eat at given position
+    // }
+
+    // eatPowerDot(x, y) {
+    //     const row = y / this.tileSize;
+    //     const column = x / this.tileSize;
+    //     if (Number.isInteger(row) && Number.isInteger(column)) {
+    //       const tile = this.map[row][column];
+    //       if (tile === 7) {
+    //         this.map[row][column] = 5;
+    //         return true;
+    //       }
+    //     }
+    //     return false;
+    //   }
 
     eatHeart(x,y){
         const row = Math.floor(y / this.tileSize);
