@@ -186,11 +186,11 @@ export default class Ghost {
         // }
 
         this.scaredGhost = new Image();
-        this.scaredGhost.src = '../images/blue_ghost.png';
+        this.scaredGhost.src = 'images/scaredghost.png';
 
 
         this.scaredGhost2 = new Image();
-        this.scaredGhost2.src = '../images/blue_ghost.png';
+        this.scaredGhost2.src = 'images/scaredghost2.png';
 
         this.image = this.normalImage;
 
