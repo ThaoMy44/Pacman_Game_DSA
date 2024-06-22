@@ -89,7 +89,7 @@ on :heart:
 <br />
 
 ## References<a name="References">  :eye::tongue::eye:
-
+[Step-by-step explanation of A* pathfinding algorithm in Java](https://www.youtube.com/watch?v=2JNEme00ZFA&t=615s)
 <br />
 
 <p align="right"><a href="#top">Back to top ↑</a></p>
