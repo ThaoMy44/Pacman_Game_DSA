@@ -94,7 +94,7 @@ button:hover, .start-game-button:hover {
     background-color: black;
 }
 
-#gameCanvas {
+#gameCanvas { 
     box-shadow: 10px 10px 20px black;
 }
 
