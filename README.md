@@ -16,6 +16,7 @@
   <p align="center">
     An online game created with HTML, CSS, Javascript for Algorithm & Data Structures course in International University - VNUHCM!
     <br />
+    This project was implemented by: Doan Vo Thao My - ITDSIU22138
     <br />
   </p>
 </div>
@@ -48,10 +49,10 @@ Our goal is to make a pathfinder that is not only efficient in determining the s
 
 ### Getting Started :mechanical_arm:
 
-You can simply double click on `menu.html` or click straight to `index.html`  and use the app. 
+You can simply double click on `menu.html` and play the app. 
 
 ### Why is A*? :mechanical_arm:
-A* is chosen for pathfinding in this scenario because it is more efficient than BFS, especially in large and complex environments. A* uses a heuristic to direct its search towards the target, leading to faster solutions. Additionally, it guarantees an optimal path if one exists, unlike BFS which is less efficient in large search spaces.
+A* is chosen for pathfinding in this scenario because it is more efficient than BFS, particularly in large and complex environments. A* uses a heuristic to guide its search towards the target, resulting in faster solutions. Moreover, it guarantees finding the optimal path if one exists, unlike BFS, which is less efficient in extensive search spaces.
 
 
 
