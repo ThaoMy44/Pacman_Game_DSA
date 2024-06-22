@@ -1,4 +1,5 @@
-
+//Doan Vo Thao My _ ITDSIU22138
+//This class implements the A* pathfinding algorithm for fireghost navigation
 class Node {
     constructor(x, y) {
       this.x = x;

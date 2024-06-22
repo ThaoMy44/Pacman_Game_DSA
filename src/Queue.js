@@ -1,3 +1,5 @@
+//Doan Vo Thao My _ ITDSIU22138
+//This class defines a Queue data structure with methods to enqueue (add), dequeue (remove), check the front element, verify if it's empty, and print all elements in the queue.
 export default class Queue {
     constructor() {
         this.items = [];

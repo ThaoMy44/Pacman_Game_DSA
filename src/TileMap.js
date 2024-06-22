@@ -1,3 +1,5 @@
+//Doan Vo Thao My _ ITDSIU22138
+//Manages the game's map, including drawing tiles, handling dot and power-up placements, and managing collisions
 import Ghost from "./Ghost.js";
 import MovingDirection from "./MovingDirection.js";
 import Pacman from "./Pacman.js";

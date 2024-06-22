@@ -1,3 +1,5 @@
+//Doan Vo Thao My _ ITDSIU22138
+//This class defines a Stack data structure with methods to push (add), pop (remove), peek (view the top element), check if it's empty, and print all elements in the stack.
 export default class Stack {
     constructor() {
         this.items = [];

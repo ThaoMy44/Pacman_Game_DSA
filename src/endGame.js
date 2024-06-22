@@ -1,3 +1,5 @@
+//Doan Vo Thao My _ ITDSIU22138
+//This script manages the end-of-game screen by displaying the game result (win or lose),
 document.addEventListener('DOMContentLoaded', function() {
     const params = new URLSearchParams(window.location.search);
     const result = params.get('result');

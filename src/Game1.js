@@ -1,3 +1,5 @@
+// Doan Vo Thao My _ ITDSIU22138
+//manages the game's primary logic, drawing and updating the game interface, handling player interactions, and responding to game states (win, lose).
 import MovingDirection from "./MovingDirection.js";
 import TileMap from "./TileMap.js";
 

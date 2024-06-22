@@ -1,3 +1,6 @@
+//Doan Vo Thao My _ ITDSIU22138
+//This script handles the menu interactions in a game, pausing background audio and initializing the game at a selected difficulty level when a level button is clicked.
+
 document.addEventListener('DOMContentLoaded', () => {
     const menu = document.getElementById('menu');
     const gameContainer = document.getElementById('gameContainer');

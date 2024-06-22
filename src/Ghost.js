@@ -1,3 +1,5 @@
+//Doan Vo Thao My _ ITDSIU22138
+//represents the ghosts in the game, handling their behavior and interactions.
 import { astar } from "./astar.js";
 import MovingDirection from "./MovingDirection.js";
 

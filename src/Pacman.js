@@ -1,3 +1,5 @@
+//Doan Vo Thao My _ ITDSIU22138
+//Manages the Frog character's behavior and interactions within the game.
 import MovingDirection from "./MovingDirection.js";
 
 export default class Pacman{
