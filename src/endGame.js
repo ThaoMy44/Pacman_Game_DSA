@@ -25,4 +25,4 @@ document.addEventListener('DOMContentLoaded', function() {
     homeButton.addEventListener('click', function() {
         window.location.href = 'menu.html'; // Replace with your game's main page
     });
-});
+}); 
